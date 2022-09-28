@@ -17,10 +17,27 @@ export default function Home() {
         currencyCode: 'USD',
         supportedNetworks: ['visa', 'masterCard', 'amex', 'discover'],
         merchantCapabilities: ['supports3DS'],
-        total: { label: 'Your Merchant Name', amount: '10.00' },
+        total: { label: 'Demo (Card is not charged)', amount: '10.00' },
       }
       const session = new ApplePaySession(3, request);
       handleApplePayEvents(session)
+
+      session.onvalidatemerchant = event => {
+        console.log('validating merchant', event)
+        const { validationURL } = event
+        fetch(`api/merchant-session/new/?validationURL=` + validationURL)
+          .then(res => res.json())
+          .then(data => {
+            session.completeMerchantValidation(data);
+          });
+      }
+      session.onpaymentauthorized = payment => {
+        console.log('on payment authorized', payment)
+
+        // call to API to make payment and charge the card
+        const status = ApplePaySession.STATUS_SUCCESS
+        session.completePayment(status)
+      }
       session.begin()
     }
 
