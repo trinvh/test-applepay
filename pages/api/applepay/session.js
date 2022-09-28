@@ -2,7 +2,7 @@ import * as fs from "node:fs";
 import * as path from 'node:path';
 import * as request from 'request'
 
-const certPath = path.join(process.cwd(), 'merchant_id.pem')
+const certPath = path.join(process.cwd(), 'certs/merchant_id.pem')
 const cert = fs.readFileSync(certPath, "utf8");
 
 export default function handler(req, res) {
