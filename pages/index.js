@@ -25,7 +25,7 @@ export default function Home() {
       session.onvalidatemerchant = event => {
         console.log('validating merchant', event)
         const { validationURL } = event
-        fetch(`api/merchant-session/new/?validationURL=` + validationURL)
+        fetch(`api/applepay/session?validationURL=` + validationURL)
           .then(res => res.json())
           .then(data => {
             session.completeMerchantValidation(data);
