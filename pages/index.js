@@ -5,7 +5,7 @@ import styles from '../styles/Home.module.css'
 export default function Home() {
   return (
     <>
-      <Script src="https://www.google-analytics.com/analytics.js" />
+      <Script src="https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js" />
       <div className={styles.container}>
         <Head>
           <title>Create Next App</title>
