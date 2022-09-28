@@ -23,8 +23,8 @@ console.log(req.headers.host)
     json: true,
   };
 
-  request.post(options, function (error, response, body) {
-    if (error) return res.send(error.message);
-    res.send(body);
+  return request.post(options, function (error, response, body) {
+    if (error) return res.status(200).send(error.message);
+    return res.status(200).send(body);
   });
 }
