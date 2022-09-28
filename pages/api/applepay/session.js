@@ -1,6 +1,9 @@
 import * as fs from "node:fs";
+import * as path from 'node:path';
+import * as request from 'request'
 
-const cert = fs.readFileSync("../../../merchant_id.cer", "utf8");
+const certPath = path.join(process.cwd(), 'merchant_id.pem')
+const cert = fs.readFileSync(certPath, "utf8");
 
 export default function handler(req, res) {
   var url = req.query.validationURL;
@@ -21,7 +24,7 @@ console.log(req.headers.host)
   };
 
   request.post(options, function (error, response, body) {
-    if (error) throw new Error(error);
+    if (error) return res.send(error.message);
     res.send(body);
   });
 }
